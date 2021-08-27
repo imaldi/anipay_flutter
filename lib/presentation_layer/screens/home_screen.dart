@@ -1,7 +1,11 @@
 import 'package:anipay_flutter/logic_layer/navigation_helper.dart';
+import 'package:anipay_flutter/presentation_layer/screens/call_us_screen.dart';
 import 'package:anipay_flutter/presentation_layer/screens/lainnya_screen.dart';
 import 'package:anipay_flutter/data_layer/size_const.dart';
+import 'package:anipay_flutter/presentation_layer/screens/login_screen.dart';
 import 'package:anipay_flutter/presentation_layer/screens/settings_screen.dart';
+import 'package:anipay_flutter/presentation_layer/screens/tentang_screen.dart';
+import 'package:anipay_flutter/presentation_layer/widgets/my_alert_dialog.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool logout = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,6 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: Icon(Icons.call),
               title: const Text('Hubungi Kami'),
               onTap: () {
+                navigateTo(context, CallUsScreen());
                 // Update the state of the app.
                 // ...
               },
@@ -94,6 +100,8 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: Icon(Icons.info_outline),
               title: const Text('Tentang'),
               onTap: () {
+                navigateTo(context, TentangScreen());
+
                 // Update the state of the app.
                 // ...
               },
@@ -104,7 +112,25 @@ class _HomeScreenState extends State<HomeScreen> {
             ListTile(
               leading: Icon(Icons.logout),
               title: const Text('Keluar'),
-              onTap: () {
+              onTap: () async {
+                await myConfirmDialog(context,
+                    title: "Konfirmasi",
+                    basicContentString: "Apakah Anda Ingin Log Keluar",
+                    positiveButtonText: "Ya",
+                    negativeButtonText: "Tidak", positiveButton: () async {
+                  // navigatorPop(context);
+
+                  setState(() {
+                    logout = true;
+                  });
+                  // await navigateTo(context, LoginScreen());
+                  print("positive");
+                }, negativeButton: () {
+                  navigatorPop(context);
+                });
+                if (logout) {
+                  pushReplacement(context, LoginScreen());
+                }
                 // Update the state of the app.
                 // ...
               },
