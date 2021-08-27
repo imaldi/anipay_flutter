@@ -1,4 +1,4 @@
-import 'package:anipay_flutter/size_const.dart';
+import 'package:anipay_flutter/data_layer/size_const.dart';
 import 'package:flutter/material.dart';
 
 class LainnyaScreen extends StatefulWidget {
@@ -82,7 +82,10 @@ class _LainnyaScreenState extends State<LainnyaScreen> {
                     child: Column(
                       children: [
                         Icon(Icons.local_hospital),
-                        Text("BPJS KESEHATAN"),
+                        Text(
+                          "BPJS KESEHATAN",
+                          textAlign: TextAlign.center,
+                        ),
                       ],
                     ),
                   ),
@@ -144,7 +147,10 @@ class _LainnyaScreenState extends State<LainnyaScreen> {
                     child: Column(
                       children: [
                         Icon(Icons.tv),
-                        Text("TV BERLANGGANAN"),
+                        Text(
+                          "TV BERLANGGANAN",
+                          textAlign: TextAlign.center,
+                        ),
                       ],
                     ),
                   ),

@@ -1,4 +1,4 @@
-import 'package:anipay_flutter/splash_screen.dart';
+import 'package:anipay_flutter/presentation_layer/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {

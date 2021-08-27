@@ -1,5 +1,7 @@
-import 'package:anipay_flutter/lainnya_screen.dart';
-import 'package:anipay_flutter/size_const.dart';
+import 'package:anipay_flutter/logic_layer/navigation_helper.dart';
+import 'package:anipay_flutter/presentation_layer/screens/lainnya_screen.dart';
+import 'package:anipay_flutter/data_layer/size_const.dart';
+import 'package:anipay_flutter/presentation_layer/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -67,6 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: Icon(Icons.settings),
               title: const Text('Pengaturan'),
               onTap: () {
+                navigateTo(context, SettingScreen());
                 // Update the state of the app.
                 // ...
               },

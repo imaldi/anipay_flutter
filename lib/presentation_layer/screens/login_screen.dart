@@ -1,5 +1,5 @@
-import 'package:anipay_flutter/home_screen.dart';
-import 'package:anipay_flutter/size_const.dart';
+import 'package:anipay_flutter/presentation_layer/screens/home_screen.dart';
+import 'package:anipay_flutter/data_layer/size_const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
