@@ -1,3 +1,4 @@
+import 'package:anipay_flutter/data_layer/repos/login_repo.dart';
 import 'package:anipay_flutter/presentation_layer/screens/home_screen.dart';
 import 'package:anipay_flutter/data_layer/size_const.dart';
 import 'package:flutter/material.dart';
@@ -12,149 +13,185 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool obscureText = true;
+  GlobalKey<FormState> keyForm = GlobalKey<FormState>();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController responseLoginController = TextEditingController();
+  checkForm() async {
+    if (keyForm.currentState?.validate() ?? false) {
+      LoginRepo loginRepo = LoginRepo();
+      var some = await loginRepo.loginToServer(phoneController.text, passwordController.text);
+      setState(() {
+        responseLoginController.text = some.toString();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.all(size_huge),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: size_huge * 2,
-                ),
-                Text(
-                  "AniPay",
-                  style: TextStyle(fontSize: 32),
-                ),
-                SizedBox(
-                  height: size_huge * 2,
-                ),
-                Container(
-                  padding: EdgeInsets.all(size_small),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.person,
-                          color: Colors.white,
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                        hintText: "No Handphone",
-                        fillColor: Colors.blueAccent),
+          child: Form(
+            key: keyForm,
+            child: Container(
+              padding: EdgeInsets.all(size_huge),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: size_huge * 2,
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(size_small),
-                  child: TextFormField(
-                    obscureText: obscureText,
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.lock,
-                          color: Colors.white,
-                        ),
-                        suffixIcon: InkWell(
-                          onTap: () {
-                            setState(() {
-                              obscureText = !obscureText;
-                            });
-                          },
-                          child: Icon(
-                            obscureText ? Icons.remove_red_eye_outlined : Icons.remove_red_eye,
-                            color: Colors.black,
+                  Text(
+                    "AniPay",
+                    style: TextStyle(fontSize: 32),
+                  ),
+                  SizedBox(
+                    height: size_huge * 2,
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(size_small),
+                    child: TextFormField(
+                      validator: (value) {
+                        if (value?.isNotEmpty ?? false) {
+                          return null;
+                        }
+                        return "Field Ini Wajib";
+                      },
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.person,
+                            color: Colors.white,
                           ),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blueAccent),
-                        ),
-                        hintText: "Kata Sandi",
-                        fillColor: Colors.black),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                          hintText: "No Handphone",
+                          fillColor: Colors.blueAccent),
+                    ),
                   ),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.all(size_medium),
-                        child: TextButton(
-                          style: ButtonStyle(
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0), side: BorderSide(color: Colors.white)))),
-                          onPressed: () {
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
-                          },
-                          child: Text(
-                            "LOGIN",
-                            style: TextStyle(color: Colors.white),
+                  Container(
+                    padding: EdgeInsets.all(size_small),
+                    child: TextFormField(
+                      obscureText: obscureText,
+                      validator: (value) {
+                        if (value?.isNotEmpty ?? false) {
+                          return null;
+                        }
+                        return "Field Ini Wajib";
+                      },
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.lock,
+                            color: Colors.white,
+                          ),
+                          suffixIcon: InkWell(
+                            onTap: () {
+                              setState(() {
+                                obscureText = !obscureText;
+                              });
+                            },
+                            child: Icon(
+                              obscureText ? Icons.remove_red_eye_outlined : Icons.remove_red_eye,
+                              color: Colors.black,
+                            ),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blueAccent),
+                          ),
+                          hintText: "Kata Sandi",
+                          fillColor: Colors.black),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.all(size_medium),
+                          child: TextButton(
+                            style: ButtonStyle(
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0), side: BorderSide(color: Colors.white)))),
+                            onPressed: () {
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
+                              // checkForm();
+                              print("Something");
+                            },
+                            child: Text(
+                              "LOGIN",
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                Text(
-                  "Belum Punya Akun?",
-                  style: TextStyle(color: Colors.white),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.all(size_medium),
-                        child: TextButton(
-                          style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF87E2FF)),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  side: BorderSide(color: Color(0xFF87E2FF))))),
-                          onPressed: () {},
-                          child: Text(
-                            "DAFTAR",
-                            style: TextStyle(color: Colors.blueAccent),
+                    ],
+                  ),
+                  Text(
+                    "Belum Punya Akun?",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.all(size_medium),
+                          child: TextButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF87E2FF)),
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                    side: BorderSide(color: Color(0xFF87E2FF))))),
+                            onPressed: () {},
+                            child: Text(
+                              "DAFTAR",
+                              style: TextStyle(color: Colors.blueAccent),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: size_huge,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.lock,
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      width: size_medium,
-                    ),
-                    Text(
-                      "Lupa Kata Sandi?",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "v2.17",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                  SizedBox(
+                    height: size_huge,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.lock,
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        width: size_medium,
+                      ),
+                      Text(
+                        "Lupa Kata Sandi?",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "v2.17",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    "${responseLoginController.text}",
+                    softWrap: true,
+                    style: TextStyle(color: Colors.white),
+                  )
+                ],
+              ),
             ),
           ),
         ),

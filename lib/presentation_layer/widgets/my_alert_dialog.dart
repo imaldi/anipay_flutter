@@ -12,6 +12,7 @@ Future myConfirmDialog(
   String? negativeButtonText,
   Function? positiveButton,
   Function? negativeButton,
+  bool? isSingleButton = false,
   Widget? customContent,
 }) async {
   return await showDialog(
@@ -45,24 +46,27 @@ Future myConfirmDialog(
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Flexible(
-                child: Container(
-                  height: 45,
-                  width: widthScreen(context),
-                  child: ElevatedButton(
-                    child: MyText(negativeButtonText ?? "No"),
-                    onPressed: () {
-                      negativeButton!();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(size_normal)),
-                      primary: primaryColor,
-                      side: BorderSide(color: primaryColor),
+              Visibility(
+                visible: !(isSingleButton ?? false),
+                child: Flexible(
+                  child: Container(
+                    height: 45,
+                    width: widthScreen(context),
+                    child: ElevatedButton(
+                      child: MyText(negativeButtonText ?? "No"),
+                      onPressed: () {
+                        negativeButton!();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(size_normal)),
+                        primary: primaryColor,
+                        side: BorderSide(color: primaryColor),
+                      ),
                     ),
                   ),
                 ),
               ),
-              SizedBox(width: size_medium),
+              Visibility(visible: !(isSingleButton ?? false), child: SizedBox(width: size_medium)),
               Flexible(
                 child: Container(
                   height: 45,

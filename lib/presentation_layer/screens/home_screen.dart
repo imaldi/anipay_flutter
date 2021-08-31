@@ -1,8 +1,12 @@
+import 'package:anipay_flutter/data_layer/consts/color_consts.dart';
 import 'package:anipay_flutter/logic_layer/navigation_helper.dart';
 import 'package:anipay_flutter/presentation_layer/screens/call_us_screen.dart';
 import 'package:anipay_flutter/presentation_layer/screens/lainnya_screen.dart';
 import 'package:anipay_flutter/data_layer/size_const.dart';
 import 'package:anipay_flutter/presentation_layer/screens/login_screen.dart';
+import 'package:anipay_flutter/presentation_layer/screens/ovo_screen.dart';
+import 'package:anipay_flutter/presentation_layer/screens/pulsa_prabayar_screen.dart';
+import 'package:anipay_flutter/presentation_layer/screens/riwayat_screen.dart';
 import 'package:anipay_flutter/presentation_layer/screens/settings_screen.dart';
 import 'package:anipay_flutter/presentation_layer/screens/tentang_screen.dart';
 import 'package:anipay_flutter/presentation_layer/widgets/my_alert_dialog.dart';
@@ -74,6 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: Icon(Icons.settings),
               title: const Text('Pengaturan'),
               onTap: () {
+                navigatorPop(context);
                 navigateTo(context, SettingScreen());
                 // Update the state of the app.
                 // ...
@@ -100,6 +105,8 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: Icon(Icons.info_outline),
               title: const Text('Tentang'),
               onTap: () {
+                navigatorPop(context);
+
                 navigateTo(context, TentangScreen());
 
                 // Update the state of the app.
@@ -173,23 +180,109 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      Column(
-                                        children: [
-                                          Icon(Icons.money),
-                                          Text("TRANSFER"),
-                                        ],
+                                      InkWell(
+                                        onTap: () {
+                                          showModalBottomSheet(
+                                              context: context,
+                                              builder: (context) {
+                                                return Column(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: <Widget>[
+                                                    Container(
+                                                      padding: EdgeInsets.all(size_medium),
+                                                      child: ListTile(
+                                                        // leading: new Icon(Icons.photo),
+                                                        title: Text('Aktifkan Fitur Bayar Anda, gratis!'),
+                                                        subtitle: Text(
+                                                          'Nikmati Kemudahan pembayaran dan Transfer antar user sekarang. Ikuti langkah mudah untuk aktivasinya',
+                                                          softWrap: true,
+                                                        ),
+                                                        onTap: () {
+                                                          Navigator.pop(context);
+                                                        },
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      padding: EdgeInsets.all(size_medium),
+                                                      child: ListTile(
+                                                        leading: new Icon(Icons.local_hospital_outlined),
+                                                        title: new Text(
+                                                          'Bayar dengan AniPay ke Merchant lebih mudah dan praktis',
+                                                          softWrap: true,
+                                                        ),
+                                                        onTap: () {
+                                                          Navigator.pop(context);
+                                                        },
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      padding: EdgeInsets.all(size_medium),
+                                                      child: ListTile(
+                                                        leading: new Icon(Icons.refresh),
+                                                        title: new Text(
+                                                          'Transfer Saldo Anipay Anda ke Teman atau Mitra dengan lebih mudah dan aman',
+                                                          softWrap: true,
+                                                        ),
+                                                        onTap: () {
+                                                          Navigator.pop(context);
+                                                        },
+                                                      ),
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        Expanded(
+                                                          child: TextButton(
+                                                            style: ButtonStyle(
+                                                              backgroundColor:
+                                                                  MaterialStateProperty.all<Color>(primaryDarkBlue),
+                                                            ),
+                                                            onPressed: () {},
+                                                            child: Text(
+                                                              "AKTIVASI SEKARANG",
+                                                              style: TextStyle(color: Colors.white),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                );
+                                              });
+                                        },
+                                        child: Column(
+                                          children: [
+                                            Icon(Icons.money),
+                                            Text("TRANSFER"),
+                                          ],
+                                        ),
                                       ),
-                                      Column(
-                                        children: [
-                                          Icon(Icons.qr_code),
-                                          Text("QR CODE"),
-                                        ],
+                                      InkWell(
+                                        onTap: () {
+                                          myConfirmDialog(context,
+                                              title: "Pemberitahuan",
+                                              basicContentString: "Fitur Dalam Pengembangan",
+                                              isSingleButton: true,
+                                              positiveButtonText: "TUTUP",
+                                              positiveButton: () {});
+                                        },
+                                        child: Column(
+                                          children: [
+                                            Icon(Icons.qr_code),
+                                            Text("QR CODE"),
+                                          ],
+                                        ),
                                       ),
-                                      Column(
-                                        children: [
-                                          Icon(Icons.history),
-                                          Text("RIWAYAT"),
-                                        ],
+                                      InkWell(
+                                        onTap: () {
+                                          navigateTo(context, RiwayatScreen());
+                                        },
+                                        child: Column(
+                                          children: [
+                                            Icon(Icons.history),
+                                            Text("RIWAYAT"),
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -207,22 +300,32 @@ class _HomeScreenState extends State<HomeScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Expanded(
-                              child: Column(
-                                children: [
-                                  Icon(Icons.phone_android),
-                                  Text(
-                                    "PULSA PRABAYAR",
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
+                              child: InkWell(
+                                onTap: () {
+                                  navigateTo(context, PulsaPrabayarScreen());
+                                },
+                                child: Column(
+                                  children: [
+                                    Icon(Icons.phone_android),
+                                    Text(
+                                      "PULSA PRABAYAR",
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             Expanded(
-                              child: Column(
-                                children: [
-                                  Icon(Icons.money),
-                                  Text("TOP UP OVO"),
-                                ],
+                              child: InkWell(
+                                onTap: () {
+                                  navigateTo(context, OvoScreen());
+                                },
+                                child: Column(
+                                  children: [
+                                    Icon(Icons.money),
+                                    Text("TOP UP OVO"),
+                                  ],
+                                ),
                               ),
                             ),
                             Expanded(
