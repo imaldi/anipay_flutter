@@ -40,14 +40,16 @@ class _MyDropdownButtonState<T> extends State<MyDropdownButton<T>> {
     // int index = ;
     List<DropdownMenuItem<T>>? itemms = values.map((T e) {
       return DropdownMenuItem(
-          onTap: (values.indexOf(e) != 0 && widget.onItemTapped != null)
-              ? () {
+          onTap:
+          // (values.indexOf(e) != 0 && widget.onItemTapped != null)
+          //     ?
+              () {
                   setState(() {
                     selectedValue = e;
                     widget.onItemTapped!(e);
                   });
-                }
-              : null,
+                },
+              // : null,
           value: e,
           child: widget.textInCenter ?? false ? Center(child: Text(textValue(e))) : Text(textValue(e)));
     }).toList();

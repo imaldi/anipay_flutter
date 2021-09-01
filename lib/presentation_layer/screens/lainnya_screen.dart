@@ -2,6 +2,7 @@ import 'package:anipay_flutter/data_layer/size_const.dart';
 import 'package:anipay_flutter/logic_layer/navigation_helper.dart';
 import 'package:anipay_flutter/presentation_layer/screens/bpjs_screen.dart';
 import 'package:anipay_flutter/presentation_layer/screens/gopay_screen.dart';
+import 'package:anipay_flutter/presentation_layer/screens/internet_screen.dart';
 import 'package:anipay_flutter/presentation_layer/screens/listrik_screen.dart';
 import 'package:anipay_flutter/presentation_layer/screens/ovo_screen.dart';
 import 'package:anipay_flutter/presentation_layer/screens/paket_data_screen.dart';
@@ -10,6 +11,7 @@ import 'package:anipay_flutter/presentation_layer/screens/pulsa_pascabayar_scree
 import 'package:anipay_flutter/presentation_layer/screens/pulsa_prabayar_screen.dart';
 import 'package:anipay_flutter/presentation_layer/screens/telkom_screen.dart';
 import 'package:anipay_flutter/presentation_layer/screens/token_listrik_screen.dart';
+import 'package:anipay_flutter/presentation_layer/screens/tv_berlangganan_screen.dart';
 import 'package:flutter/material.dart';
 
 class LainnyaScreen extends StatefulWidget {
@@ -206,22 +208,31 @@ class _LainnyaScreenState extends State<LainnyaScreen> {
                     ),
                   ),
                   Expanded(
-                    child: Column(
-                      children: [
-                        Icon(Icons.tv),
-                        Text(
-                          "TV BERLANGGANAN",
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
+                    child: InkWell(
+                      onTap: (){
+                        navigateTo(context, TvBerlanggananScreen());
+                      },
+                      child: Column(
+                        children: [
+                          Icon(Icons.tv),
+                          Text(
+                            "TV BERLANGGANAN",
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Expanded(
-                    child: Column(
-                      children: [
-                        Icon(Icons.wifi),
-                        Text("INTERNET"),
-                      ],
+                    child: InkWell(
+                      onTap:(){
+                        navigateTo(context, InternetScreen());
+                      },child: Column(
+                        children: [
+                          Icon(Icons.wifi),
+                          Text("INTERNET"),
+                        ],
+                      ),
                     ),
                   ),
                 ],
