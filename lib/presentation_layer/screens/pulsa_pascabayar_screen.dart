@@ -3,19 +3,19 @@ import 'package:anipay_flutter/data_layer/size_const.dart';
 import 'package:anipay_flutter/presentation_layer/widgets/my_text.dart';
 import 'package:flutter/material.dart';
 
-class PulsaPrabayarScreen extends StatefulWidget {
-  const PulsaPrabayarScreen({Key? key}) : super(key: key);
+class PulsaPascabayarScreen extends StatefulWidget {
+  const PulsaPascabayarScreen({Key? key}) : super(key: key);
 
   @override
-  _PulsaPrabayarScreenState createState() => _PulsaPrabayarScreenState();
+  _PulsaPascabayarScreenState createState() => _PulsaPascabayarScreenState();
 }
 
-class _PulsaPrabayarScreenState extends State<PulsaPrabayarScreen> {
+class _PulsaPascabayarScreenState extends State<PulsaPascabayarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text("Pulsa Prabayar")),
+        title: Center(child: Text("Pulsa Pascabayar")),
         actions: [Container(margin: EdgeInsets.all(size_medium))],
       ),
       body: Container(

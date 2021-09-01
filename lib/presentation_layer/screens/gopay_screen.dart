@@ -4,19 +4,19 @@ import 'package:anipay_flutter/presentation_layer/widgets/my_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class OvoScreen extends StatefulWidget {
-  const OvoScreen({Key? key}) : super(key: key);
+  class GopayScreen extends StatefulWidget {
+  const GopayScreen({Key? key}) : super(key: key);
 
   @override
-  _OvoScreenState createState() => _OvoScreenState();
+  _GopayScreenState createState() => _GopayScreenState();
 }
 
-class _OvoScreenState extends State<OvoScreen> {
+class _GopayScreenState extends State<GopayScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text("Pulsa Prabayar")),
+        title: Center(child: Text("Gopay")),
         actions: [Container(margin: EdgeInsets.all(size_medium))],
       ),
       body: Container(
