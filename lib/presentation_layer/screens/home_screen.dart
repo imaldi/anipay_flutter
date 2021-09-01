@@ -1,5 +1,6 @@
 import 'package:anipay_flutter/data_layer/consts/color_consts.dart';
 import 'package:anipay_flutter/logic_layer/navigation_helper.dart';
+import 'package:anipay_flutter/presentation_layer/screens/bpjs_screen.dart';
 import 'package:anipay_flutter/presentation_layer/screens/call_us_screen.dart';
 import 'package:anipay_flutter/presentation_layer/screens/lainnya_screen.dart';
 import 'package:anipay_flutter/data_layer/size_const.dart';
@@ -9,8 +10,11 @@ import 'package:anipay_flutter/presentation_layer/screens/pulsa_prabayar_screen.
 import 'package:anipay_flutter/presentation_layer/screens/riwayat_screen.dart';
 import 'package:anipay_flutter/presentation_layer/screens/settings_screen.dart';
 import 'package:anipay_flutter/presentation_layer/screens/tentang_screen.dart';
+import 'package:anipay_flutter/presentation_layer/screens/token_listrik_screen.dart';
 import 'package:anipay_flutter/presentation_layer/widgets/my_alert_dialog.dart';
 import 'package:flutter/material.dart';
+
+import 'pdam_index_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -329,11 +333,16 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                             Expanded(
-                              child: Column(
-                                children: [
-                                  Icon(Icons.lightbulb_outline),
-                                  Text("TOKEN LISTRIK"),
-                                ],
+                              child: InkWell(
+                                onTap: () {
+                                  navigateTo(context, TokenListrikScreen());
+                                },
+                                child: Column(
+                                  children: [
+                                    Icon(Icons.lightbulb_outline),
+                                    Text("TOKEN LISTRIK"),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
@@ -345,22 +354,32 @@ class _HomeScreenState extends State<HomeScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Expanded(
-                              child: Column(
-                                children: [
-                                  Icon(Icons.local_hospital_outlined),
-                                  Text(
-                                    "BPJS KESEHATAN",
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
+                              child: InkWell(
+                                onTap: () {
+                                  navigateTo(context, BPJSScreen());
+                                },
+                                child: Column(
+                                  children: [
+                                    Icon(Icons.local_hospital_outlined),
+                                    Text(
+                                      "BPJS KESEHATAN",
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             Expanded(
-                              child: Column(
-                                children: [
-                                  Icon(Icons.water),
-                                  Text("PDAM"),
-                                ],
+                              child: InkWell(
+                                onTap: () {
+                                  navigateTo(context, PDAMIndexScreen());
+                                },
+                                child: Column(
+                                  children: [
+                                    Icon(Icons.water),
+                                    Text("PDAM"),
+                                  ],
+                                ),
                               ),
                             ),
                             Expanded(

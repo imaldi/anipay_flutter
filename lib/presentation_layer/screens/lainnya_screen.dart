@@ -1,4 +1,9 @@
 import 'package:anipay_flutter/data_layer/size_const.dart';
+import 'package:anipay_flutter/logic_layer/navigation_helper.dart';
+import 'package:anipay_flutter/presentation_layer/screens/bpjs_screen.dart';
+import 'package:anipay_flutter/presentation_layer/screens/pdam_index_screen.dart';
+import 'package:anipay_flutter/presentation_layer/screens/pulsa_prabayar_screen.dart';
+import 'package:anipay_flutter/presentation_layer/screens/token_listrik_screen.dart';
 import 'package:flutter/material.dart';
 
 class LainnyaScreen extends StatefulWidget {
@@ -25,14 +30,19 @@ class _LainnyaScreenState extends State<LainnyaScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Expanded(
-                    child: Column(
-                      children: [
-                        Icon(Icons.phone_android),
-                        Text(
-                          "PULSA PRABAYAR",
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
+                    child: InkWell(
+                      onTap: (){
+                        navigateTo(context, PulsaPrabayarScreen());
+                      },
+                      child: Column(
+                        children: [
+                          Icon(Icons.phone_android),
+                          Text(
+                            "PULSA PRABAYAR",
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Expanded(
@@ -44,11 +54,16 @@ class _LainnyaScreenState extends State<LainnyaScreen> {
                     ),
                   ),
                   Expanded(
-                    child: Column(
-                      children: [
-                        Icon(Icons.water_outlined),
-                        Text("PDAM"),
-                      ],
+                    child: InkWell(
+                      onTap: (){
+                        navigateTo(context, PDAMIndexScreen());
+                      },
+                      child: Column(
+                        children: [
+                          Icon(Icons.water_outlined),
+                          Text("PDAM"),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -60,14 +75,20 @@ class _LainnyaScreenState extends State<LainnyaScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Expanded(
-                    child: Column(
-                      children: [
-                        Icon(Icons.lightbulb_outline),
-                        Text(
-                          "TOKEN LISTRIK",
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
+                    child: InkWell(
+                      onTap:
+                      (){
+                        navigateTo(context, TokenListrikScreen());
+                      },
+                      child: Column(
+                        children: [
+                          Icon(Icons.lightbulb_outline),
+                          Text(
+                            "TOKEN LISTRIK",
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Expanded(
@@ -79,14 +100,19 @@ class _LainnyaScreenState extends State<LainnyaScreen> {
                     ),
                   ),
                   Expanded(
-                    child: Column(
-                      children: [
-                        Icon(Icons.local_hospital),
-                        Text(
-                          "BPJS KESEHATAN",
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
+                    child: InkWell(
+                      onTap: (){
+                        navigateTo(context, BPJSScreen());
+                      },
+                      child: Column(
+                        children: [
+                          Icon(Icons.local_hospital),
+                          Text(
+                            "BPJS KESEHATAN",
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
