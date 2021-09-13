@@ -1,4 +1,9 @@
+import 'dart:collection';
+import 'dart:convert';
+
+import 'package:anipay_flutter/data_layer/consts/string_consts.dart';
 import 'package:anipay_flutter/data_layer/repos/login_repo.dart';
+import 'package:anipay_flutter/logic_layer/functions/CryptoHash.dart';
 import 'package:anipay_flutter/presentation_layer/screens/home_screen.dart';
 import 'package:anipay_flutter/data_layer/size_const.dart';
 import 'package:flutter/material.dart';
@@ -17,12 +22,29 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController responseLoginController = TextEditingController();
+  TextEditingController responseLoginAfterController = TextEditingController();
+  Map<String, String> mapData = new HashMap();
+  Map<String, dynamic> mapDataAfter = new HashMap();
+  String afterEncrypt = "";
+  String afterDecrypt = "";
   checkForm() async {
     if (keyForm.currentState?.validate() ?? false) {
-      LoginRepo loginRepo = LoginRepo();
-      var some = await loginRepo.loginToServer(phoneController.text, passwordController.text);
+      // LoginRepo loginRepo = LoginRepo();
+      // var some = await loginRepo.loginToServer(phoneController.text, passwordController.text);
       setState(() {
-        responseLoginController.text = some.toString();
+        // responseLoginController.text = some.toString();
+        responseLoginController.text = phoneController.text;
+        mapData['data'] = phoneController.text;
+        afterEncrypt = CryptoHash.hashData(jsonEncode(mapData), ANIPAY_LOGIN, SECRET_KEY);
+        afterDecrypt = CryptoHash.parseData(afterEncrypt, ANIPAY_LOGIN, SECRET_KEY) ?? "{Failed}";
+        // mapDataAfter = jsonDecode(CryptoHash.parseData(afterEncrypt, "1000", "a8eeea6c3c839d8b96a8a1a43a13e5c3") ?? "{Failed}");
+        // afterDecrypt = mapData['data'] ?? "Failed";
+        mapDataAfter = jsonDecode(afterDecrypt);
+        afterDecrypt = mapDataAfter['data'] ?? "Failed";
+        responseLoginAfterController.text = afterDecrypt;
+
+
+        print("phoneController.text ${phoneController.text}");
       });
     }
   }
@@ -58,6 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         }
                         return "Field Ini Wajib";
                       },
+                      controller: phoneController,
                       decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.person,
@@ -77,12 +100,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: EdgeInsets.all(size_small),
                     child: TextFormField(
                       obscureText: obscureText,
-                      validator: (value) {
-                        if (value?.isNotEmpty ?? false) {
-                          return null;
-                        }
-                        return "Field Ini Wajib";
-                      },
+                      // validator: (value) {
+                      //   if (value?.isNotEmpty ?? false) {
+                      //     return null;
+                      //   }
+                      //   return "Field Ini Wajib";
+                      // },
                       decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.lock,
@@ -119,8 +142,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18.0), side: BorderSide(color: Colors.white)))),
                             onPressed: () {
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
-                              // checkForm();
+                              // Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
+                              checkForm();
                               print("Something");
                             },
                             child: Text(
@@ -185,11 +208,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ),
+                  SizedBox(height: size_huge,),
                   Text(
-                    "${responseLoginController.text}",
+                    "Before Encrypted: ${responseLoginController.text}",
                     softWrap: true,
                     style: TextStyle(color: Colors.white),
-                  )
+                  ),
+                  Text(
+                    "After Encrypted and Decrypted back: ${responseLoginAfterController.text}",
+                    softWrap: true,
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ],
               ),
             ),
