@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'dart:convert';
 
 import 'package:anipay_flutter/data_layer/consts/string_consts.dart';
+import 'package:anipay_flutter/data_layer/model/request_body.dart';
 import 'package:anipay_flutter/data_layer/repos/login_repo.dart';
 import 'package:anipay_flutter/logic_layer/functions/CryptoHash.dart';
 import 'package:anipay_flutter/presentation_layer/screens/home_screen.dart';
@@ -21,10 +22,13 @@ class _LoginScreenState extends State<LoginScreen> {
   GlobalKey<FormState> keyForm = GlobalKey<FormState>();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController responseLoginController = TextEditingController();
-  TextEditingController responseLoginAfterController = TextEditingController();
+  // TextEditingController responseLoginController = TextEditingController();
+  // TextEditingController responseLoginAfterController = TextEditingController();
+  LoginRepo loginRepo = LoginRepo();
   Map<String, String> mapData = new HashMap();
+  Map<String, String> mapDataPlain = new HashMap();
   Map<String, dynamic> mapDataAfter = new HashMap();
+  RequestBody req = RequestBody();
   String afterEncrypt = "";
   String afterDecrypt = "";
   checkForm() async {
@@ -33,15 +37,25 @@ class _LoginScreenState extends State<LoginScreen> {
       // var some = await loginRepo.loginToServer(phoneController.text, passwordController.text);
       setState(() {
         // responseLoginController.text = some.toString();
-        responseLoginController.text = phoneController.text;
-        mapData['data'] = phoneController.text;
-        afterEncrypt = CryptoHash.hashData(jsonEncode(mapData), ANIPAY_LOGIN, SECRET_KEY);
-        afterDecrypt = CryptoHash.parseData(afterEncrypt, ANIPAY_LOGIN, SECRET_KEY) ?? "{Failed}";
-        // mapDataAfter = jsonDecode(CryptoHash.parseData(afterEncrypt, "1000", "a8eeea6c3c839d8b96a8a1a43a13e5c3") ?? "{Failed}");
-        // afterDecrypt = mapData['data'] ?? "Failed";
-        mapDataAfter = jsonDecode(afterDecrypt);
-        afterDecrypt = mapDataAfter['data'] ?? "Failed";
-        responseLoginAfterController.text = afterDecrypt;
+        // responseLoginController.text = phoneController.text;
+        mapDataPlain['flagpin'] = "2";
+        mapDataPlain['mac_address'] = "";
+        mapDataPlain['method'] = ANIPAY_LOGIN;
+        mapDataPlain['mynt_type'] = "member";
+        mapDataPlain['pin'] = passwordController.text;
+        mapDataPlain['reg_no'] = phoneController.text;
+        mapDataPlain['serialNo'] = "R9CMA07BMDJ";
+        afterEncrypt = CryptoHash.hashData(jsonEncode(mapDataPlain), ANIPAY_LOGIN, SECRET_KEY);
+
+        req.data = afterEncrypt;
+        req.method = ANIPAY_LOGIN;
+        req.sessionid = "";
+        req.versioncode = "1";
+        loginRepo.loginToServer(req);
+        // afterDecrypt = CryptoHash.parseData(afterEncrypt, ANIPAY_LOGIN, SECRET_KEY) ?? "{Failed}";
+        // mapDataAfter = jsonDecode(afterDecrypt);
+        // afterDecrypt = mapDataAfter['data'] ?? "Failed";
+        // responseLoginAfterController.text = afterDecrypt;
 
 
         print("phoneController.text ${phoneController.text}");
@@ -209,16 +223,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   SizedBox(height: size_huge,),
-                  Text(
-                    "Before Encrypted: ${responseLoginController.text}",
-                    softWrap: true,
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Text(
-                    "After Encrypted and Decrypted back: ${responseLoginAfterController.text}",
-                    softWrap: true,
-                    style: TextStyle(color: Colors.white),
-                  ),
+                  // Text(
+                  //   "Before Encrypted: ${responseLoginController.text}",
+                  //   softWrap: true,
+                  //   style: TextStyle(color: Colors.white),
+                  // ),
+                  // Text(
+                  //   "After Encrypted and Decrypted back: ${responseLoginAfterController.text}",
+                  //   softWrap: true,
+                  //   style: TextStyle(color: Colors.white),
+                  // ),
                 ],
               ),
             ),
