@@ -6,7 +6,7 @@ import 'package:anipay_flutter/data_layer/consts/string_consts.dart';
 import 'package:anipay_flutter/data_layer/model/request_body.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
-import 'package:http/http.dart' as http;
+// import 'package:http/http.dart' as http;
 
 class LoginRepo {
   Dio _dio = Dio();
@@ -38,6 +38,8 @@ class LoginRepo {
       print(response.data);
       // Map<String, dynamic> jsonResponse = json.decode(response.body);
       if (response.statusCode == 200) {
+        print("status login 200: response.data");
+
         // final Map<String, dynamic> data = jsonDecode(response.body);
         // // json.decode(response.body);
         // final ResponseBody? dataAuth = ResponseBody.fromJson(data);
