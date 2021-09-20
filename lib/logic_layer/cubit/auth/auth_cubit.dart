@@ -16,8 +16,7 @@ class AuthCubit extends Cubit<AuthCubitState> {
   registerUser(UserRegistrationAnipayRequest user) async {
     try{
         emit(AuthCubitState(isLoadingStatus: true));
-        emit(AuthCubitState(registerRequest: user, isLoadingStatus: false,
-                ));
+        emit(AuthCubitState(registerRequest: user, isLoadingStatus: false,));
 
     }catch (e){
 

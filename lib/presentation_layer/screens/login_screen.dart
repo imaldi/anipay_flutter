@@ -5,8 +5,10 @@ import 'package:anipay_flutter/data_layer/consts/string_consts.dart';
 import 'package:anipay_flutter/data_layer/model/request_body.dart';
 import 'package:anipay_flutter/data_layer/repos/login_repo.dart';
 import 'package:anipay_flutter/logic_layer/functions/CryptoHash.dart';
+import 'package:anipay_flutter/logic_layer/navigation_helper.dart';
 import 'package:anipay_flutter/presentation_layer/screens/home_screen.dart';
 import 'package:anipay_flutter/data_layer/size_const.dart';
+import 'package:anipay_flutter/presentation_layer/screens/registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -156,8 +158,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18.0), side: BorderSide(color: Colors.white)))),
                             onPressed: () {
-                              // Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
-                              checkForm();
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
+                              // checkForm();
                               print("Something");
                             },
                             child: Text(
@@ -184,7 +186,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18.0),
                                     side: BorderSide(color: Color(0xFF87E2FF))))),
-                            onPressed: () {},
+                            onPressed: () {
+                              navigateTo(context, RegistrationScreen());
+                            },
                             child: Text(
                               "DAFTAR",
                               style: TextStyle(color: Colors.blueAccent),

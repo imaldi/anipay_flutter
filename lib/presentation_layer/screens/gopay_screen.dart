@@ -4,7 +4,7 @@ import 'package:anipay_flutter/presentation_layer/widgets/my_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-  class GopayScreen extends StatefulWidget {
+class GopayScreen extends StatefulWidget {
   const GopayScreen({Key? key}) : super(key: key);
 
   @override
