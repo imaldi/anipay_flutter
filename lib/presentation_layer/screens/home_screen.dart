@@ -6,6 +6,7 @@ import 'package:anipay_flutter/presentation_layer/screens/lainnya_screen.dart';
 import 'package:anipay_flutter/data_layer/size_const.dart';
 import 'package:anipay_flutter/presentation_layer/screens/login_screen.dart';
 import 'package:anipay_flutter/presentation_layer/screens/ovo_screen.dart';
+import 'package:anipay_flutter/presentation_layer/screens/profile_screen.dart';
 import 'package:anipay_flutter/presentation_layer/screens/pulsa_prabayar_screen.dart';
 import 'package:anipay_flutter/presentation_layer/screens/riwayat_screen.dart';
 import 'package:anipay_flutter/presentation_layer/screens/settings_screen.dart';
@@ -64,6 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     borderRadius: BorderRadius.circular(size_normal),
                                     side: BorderSide(color: Colors.blueAccent)))),
                             onPressed: () {
+                              navigateTo(context, ProfileScreen());
                               // Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
                             },
                             child: Text(

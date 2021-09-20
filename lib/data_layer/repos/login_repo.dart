@@ -3,8 +3,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:anipay_flutter/data_layer/consts/string_consts.dart';
+import 'package:anipay_flutter/data_layer/model/login_response_maybe.dart' as ResponseBasic;
+import 'package:anipay_flutter/data_layer/model/plain_login_response_model.dart';
 import 'package:anipay_flutter/data_layer/model/request_body.dart';
 import 'package:anipay_flutter/data_layer/model/user_register_anipay_response.dart';
+import 'package:anipay_flutter/logic_layer/functions/CryptoHash.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 // import 'package:http/http.dart' as http;
@@ -22,7 +25,7 @@ class LoginRepo {
   Future<Response?> loginToServer(RequestBody requestTrx) async {
     String baseUrl = "${BASE_URL + EA_MOBILES}";
     print("baseUrl: ${baseUrl}");
-    print("request json: ${requestTrx.toString()}");
+    print("request json: ${requestTrx.toJson().toString()}");
 
     Map<String, String> headers = new HashMap();
     headers["content-type"] = "application/json";
@@ -39,7 +42,20 @@ class LoginRepo {
       print(response.data);
       // Map<String, dynamic> jsonResponse = json.decode(response.body);
       if (response.statusCode == 200) {
-        print("status login 200: response.data");
+        print("status login 200: ${response.data}");
+        // var jsnDcd = jsonDecode(response.data);
+        // var bef = ResponseBasic.ResponseBody.fromJson(response.data);
+        var bef = ResponseBasic.ResponseBody.fromJson(response.data);
+        print("bef: ${bef.toJson().toString()}");
+        var text = CryptoHash.parseData(bef.data ?? "", ANIPAY_LOGIN, SECRET_KEY);
+        print("after decrypt: $text");
+        var loginResponse = text != null ? PlainLoginResponseModel.fromJson(jsonDecode(text)) : PlainLoginResponseModel();
+        print("loginResponse: ${loginResponse.toJson().toString()}");
+        // print("jsnDcd: ${jsnDcd.toString()}");
+        // var bef = ResponseBasic.ResponseBody.fromJson(jsnDcd);
+        // print("bef: $bef");
+        // var text = CryptoHash.parseData(bef.data ?? "", ANIPAY_LOGIN, SECRET_KEY);
+        // print("after decrypt: $text");
 
         // final Map<String, dynamic> data = jsonDecode(response.body);
         // // json.decode(response.body);

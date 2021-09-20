@@ -47,6 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
         mapDataPlain['pin'] = passwordController.text;
         mapDataPlain['reg_no'] = phoneController.text;
         mapDataPlain['serialNo'] = "R9CMA07BMDJ";
+        print("${mapDataPlain.toString()}");
         afterEncrypt = CryptoHash.hashData(jsonEncode(mapDataPlain), ANIPAY_LOGIN, SECRET_KEY);
 
         req.data = afterEncrypt;
@@ -116,12 +117,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: EdgeInsets.all(size_small),
                     child: TextFormField(
                       obscureText: obscureText,
-                      // validator: (value) {
-                      //   if (value?.isNotEmpty ?? false) {
-                      //     return null;
-                      //   }
-                      //   return "Field Ini Wajib";
-                      // },
+                      validator: (value) {
+                        if (value?.isNotEmpty ?? false) {
+                          return null;
+                        }
+                        return "Field Ini Wajib";
+                      },
+                      controller: passwordController,
                       decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.lock,
@@ -158,8 +160,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18.0), side: BorderSide(color: Colors.white)))),
                             onPressed: () {
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
-                              // checkForm();
+                              // Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
+                              checkForm();
                               print("Something");
                             },
                             child: Text(
