@@ -46,6 +46,7 @@ class _MyTextFieldState extends State<MyTextField> {
       child: TextFormField(
         autovalidateMode: AutovalidateMode.onUserInteraction,
         obscureText: widget.maxLine == null ? false: widget.obscureText,
+        // TODO nanti beresin bug maxline nya
         maxLines: widget.maxLine,
         style: widget.style,
         enabled: widget.enabled,

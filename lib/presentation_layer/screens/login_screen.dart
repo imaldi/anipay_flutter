@@ -187,7 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     borderRadius: BorderRadius.circular(18.0),
                                     side: BorderSide(color: Color(0xFF87E2FF))))),
                             onPressed: () {
-                              navigateTo(context, RegistrationScreen());
+                              navigateTo(context, registrationScreen());
                             },
                             child: Text(
                               "DAFTAR",
