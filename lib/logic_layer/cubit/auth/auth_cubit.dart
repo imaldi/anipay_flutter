@@ -19,7 +19,7 @@ class AuthCubit extends Cubit<AuthCubitState> {
   AuthCubit() : super(AuthCubitState(registerRequest: UserRegistrationAnipayRequest(),registeredUser: UserRegisterAnipayResponse()));
   LoginRepo _repo = LoginRepo();
 
-  registerUser() async {
+  registerUser(Function callbackWhenSuccess) async {
     state.registerRequest?.method = ANIPAY_USER_REGISTRATION;
     state.registerRequest?.noregagen = "noreragen";
     state.registerRequest?.norekBmt = "1234567890";
@@ -38,7 +38,7 @@ class AuthCubit extends Cubit<AuthCubitState> {
     try{
         emit(AuthCubitState(isLoadingStatus: true));
         // _repo.registerUser(state.)
-        var response = await _repo.registerUser(requestTrx);
+        var response = await _repo.registerUser(requestTrx,callbackWhenSuccess);
         var registeredUser = UserRegisterAnipayResponse.fromJson(jsonDecode(response?.data));
         log("registeredUser from Auth repo: ${registeredUser.toJson().toString()}");
 

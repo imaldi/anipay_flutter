@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:anipay_flutter/data_layer/consts/string_consts.dart';
 import 'package:anipay_flutter/data_layer/model/request_body.dart';
+import 'package:anipay_flutter/data_layer/model/user_register_anipay_response.dart';
 import 'package:anipay_flutter/data_layer/repos/login_repo.dart';
 import 'package:anipay_flutter/logic_layer/functions/CryptoHash.dart';
 import 'package:anipay_flutter/logic_layer/navigation_helper.dart';
@@ -55,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
         req.sessionid = "";
         req.versioncode = "1";
         loginRepo.loginToServer(req,(){
-          navigateTo(context, HomeScreen());
+          pushReplacement(context, HomeScreen());
         });
         // afterDecrypt = CryptoHash.parseData(afterEncrypt, ANIPAY_LOGIN, SECRET_KEY) ?? "{Failed}";
         // mapDataAfter = jsonDecode(afterDecrypt);
@@ -190,8 +191,20 @@ class _LoginScreenState extends State<LoginScreen> {
                                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18.0),
                                     side: BorderSide(color: Color(0xFF87E2FF))))),
-                            onPressed: () {
+                            onPressed: () async {
+                              // To Register Screen
                               navigateTo(context, registrationScreen());
+
+                              // var textAfterDecode = await jsonDecode(jsonEncode(EXAMPLE_HASHED_REGISTER_RESPONSE));
+                              // print("textAfterDecode: $textAfterDecode");
+                              //
+                              // print("EXAMPLE_HASHED_REGISTER_RESPONSE: $textAfterDecode");
+                              // // Test Decrypt Hashed Register Response
+                              // var text = CryptoHash.parseData(textAfterDecode, ANIPAY_USER_REGISTRATION, SECRET_KEY);
+                              // print("after decrypt: $text");
+                              //
+                              // var registerResponse = text != null ? UserRegisterAnipayResponse.fromJson(jsonDecode(text)) : UserRegisterAnipayResponse();
+                              // print("registerResponse: ${registerResponse.toJson().toString()}");
                             },
                             child: Text(
                               "DAFTAR",

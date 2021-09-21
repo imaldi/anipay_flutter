@@ -59,27 +59,6 @@ class LoginRepo {
         //Save to shared Pref
         UserProfile.saveDataUserToSharedPref(sharedPreferences, loginResponse.data?.first ?? UserProfile());
         callbackWhenSuccess();
-        // print("jsnDcd: ${jsnDcd.toString()}");
-        // var bef = ResponseBasic.ResponseBody.fromJson(jsnDcd);
-        // print("bef: $bef");
-        // var text = CryptoHash.parseData(bef.data ?? "", ANIPAY_LOGIN, SECRET_KEY);
-        // print("after decrypt: $text");
-
-        // final Map<String, dynamic> data = jsonDecode(response.body);
-        // // json.decode(response.body);
-        // final ResponseBody? dataAuth = ResponseBody.fromJson(data);
-        // // String token = dataAuth?.token ?? "";
-        // // String tokenType = dataAuth?.tokenType ?? "";
-        // // int expiresIn = dataAuth?.expiresIn ?? 0;
-        // print(response.statusCode);
-        // print(data);
-        // print("dataAuth: ${dataAuth.toString()}");
-        // print(response);
-        // // if (expiresIn > 0) {
-        // //   saveDataPref(token, tokenType, expiresIn);
-        // // }
-        // // return AuthResponse.fromJson(data);
-        // return dataAuth;
       } else {
         // print("response.body ${response.body}");
         //
@@ -95,7 +74,7 @@ class LoginRepo {
       // return "Error di server mungkin";
     }
   }
-  Future<Response?> registerUser(RequestBody requestTrx) async {
+  Future<Response?> registerUser(RequestBody requestTrx, Function callbackWhenSuccess) async {
     String baseUrl = "${BASE_URL + EA_MOBILES}";
     print("baseUrl: ${baseUrl}");
     print("request json: ${requestTrx.toJson().toString()}");
@@ -116,22 +95,19 @@ class LoginRepo {
       // Map<String, dynamic> jsonResponse = json.decode(response.body);
       if (response.statusCode == 200) {
         print("status register 200: ${response.data}");
+        callbackWhenSuccess();
 
-        // final Map<String, dynamic> data = jsonDecode(response.body);
-        // // json.decode(response.body);
-        // final ResponseBody? dataAuth = ResponseBody.fromJson(data);
-        // // String token = dataAuth?.token ?? "";
-        // // String tokenType = dataAuth?.tokenType ?? "";
-        // // int expiresIn = dataAuth?.expiresIn ?? 0;
-        // print(response.statusCode);
-        // print(data);
-        // print("dataAuth: ${dataAuth.toString()}");
-        // print(response);
-        // // if (expiresIn > 0) {
-        // //   saveDataPref(token, tokenType, expiresIn);
-        // // }
-        // // return AuthResponse.fromJson(data);
-        // return dataAuth;
+        // var bef = ResponseBasic.ResponseBody.fromJson(response.data);
+        // print("bef: ${bef.toJson().toString()}");
+        // var text = CryptoHash.parseData(bef.data ?? "", ANIPAY_USER_REGISTRATION, SECRET_KEY);
+        // print("after decrypt: $text");
+        //
+        // //Convert decrypted text to login response object
+        // var registerResponse = text != null ? UserRegisterAnipayResponse.fromJson(jsonDecode(text)) : UserRegisterAnipayResponse();
+        // print("loginResponse: ${registerResponse.toJson().toString()}");
+
+
+
         return response;
       } else {
         // print("response.body ${response.body}");

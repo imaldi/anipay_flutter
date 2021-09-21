@@ -2,10 +2,13 @@ import 'package:anipay_flutter/data_layer/consts/color_consts.dart';
 import 'package:anipay_flutter/data_layer/model/user_register_anipay_request.dart';
 import 'package:anipay_flutter/data_layer/size_const.dart';
 import 'package:anipay_flutter/logic_layer/cubit/auth/auth_cubit.dart';
+import 'package:anipay_flutter/logic_layer/navigation_helper.dart';
 import 'package:anipay_flutter/presentation_layer/widgets/my_text.dart';
 import 'package:anipay_flutter/presentation_layer/widgets/my_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'home_screen.dart';
 
 Widget registrationScreen(){
   return BlocProvider(create: (_) => AuthCubit(),child: RegistrationScreen(),);
@@ -185,7 +188,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             onPressed: () {
                               if(authCubitState.password == authCubitState.confPassword){
                                 authCubit?.changeLocalRegisterRequest(_userRegistrationAnipayRequest.copyWith(password: passwordController.text));
-                                context.read<AuthCubit>().registerUser();
+                                context.read<AuthCubit>().registerUser((){
+                                  // navigateTo(context, HomeScreen());
+                                  navigatorPop(context);
+                                });
                               }
 
                             },
