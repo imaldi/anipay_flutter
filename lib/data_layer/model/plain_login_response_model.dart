@@ -4,6 +4,9 @@
 
 import 'dart:convert';
 
+import 'package:anipay_flutter/data_layer/consts/string_consts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 PlainLoginResponseModel userRegistrationAnipayRequestFromJson(String str) => PlainLoginResponseModel.fromJson(json.decode(str));
 
 String? userRegistrationAnipayRequestToJson(PlainLoginResponseModel data) => json.encode(data.toJson());
@@ -128,6 +131,22 @@ class UserProfile {
   String? myntNumber;
   String? myntPhone;
   List<Santri>? santri;
+
+  static saveDataUserToSharedPref(SharedPreferences sharedPreferences, UserProfile userProfile) async {
+    sharedPreferences.setString(USER_PROFILE_NAMA_LOKET, userProfile.loketname ?? "");
+    sharedPreferences.setString(USER_PROFILE_NAMA_USER, userProfile.username ?? "");
+    sharedPreferences.setString(USER_PROFILE_NOMOR_REGISTRASI, userProfile.noregPartner ?? "");
+    // TODO ask which is the correct field
+    sharedPreferences.setString(USER_PROFILE_NO_VA_MYNT, userProfile.bcava ?? "");
+    // TODO ask which is the correct field
+    // sharedPreferences.setString(USER_PROFILE_EMAIL, userProfile.loketname ?? "");
+    // TODO ask which is the correct field
+    sharedPreferences.setString(USER_PROFILE_NO_PONSEL, userProfile.myntPhone ?? "");
+    // TODO ask which is the correct field
+    // sharedPreferences.setString(USER_PROFILE_PEKERJAAN, userProfile.userrole ?? "");
+    // TODO ask which is the correct field
+    // sharedPreferences.setString(USER_PROFILE_ALAMAT, userProfile.donasi ?? "");
+  }
 
   UserProfile copyWith({
     String? aktivasiFlag,

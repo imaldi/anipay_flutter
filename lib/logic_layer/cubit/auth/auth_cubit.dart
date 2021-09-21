@@ -25,7 +25,7 @@ class AuthCubit extends Cubit<AuthCubitState> {
     state.registerRequest?.norekBmt = "1234567890";
     state.registerRequest?.pin = "7766";
     state.registerRequest?.serialNo = "776688";
-    state.registerRequest?.telegramusername = "aldi7766";
+    state.registerRequest?.telegramusername = state.registerRequest?.namalengkap ?? "new user" + "+telegram";
     state.registerRequest?.myntType = "member";
             print("registerRequest: ${state.registerRequest?.toJson().toString()}");
     var afterEncrypt = CryptoHash.hashData(jsonEncode(state.registerRequest ?? UserRegistrationAnipayRequest()), ANIPAY_USER_REGISTRATION, SECRET_KEY);

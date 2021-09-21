@@ -22,8 +22,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool obscureText = true;
   GlobalKey<FormState> keyForm = GlobalKey<FormState>();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController phoneController = TextEditingController(text: "080809090707");
+  TextEditingController passwordController = TextEditingController(text: "Aldi_123");
   // TextEditingController responseLoginController = TextEditingController();
   // TextEditingController responseLoginAfterController = TextEditingController();
   LoginRepo loginRepo = LoginRepo();
@@ -54,7 +54,9 @@ class _LoginScreenState extends State<LoginScreen> {
         req.method = ANIPAY_LOGIN;
         req.sessionid = "";
         req.versioncode = "1";
-        loginRepo.loginToServer(req);
+        loginRepo.loginToServer(req,(){
+          navigateTo(context, HomeScreen());
+        });
         // afterDecrypt = CryptoHash.parseData(afterEncrypt, ANIPAY_LOGIN, SECRET_KEY) ?? "{Failed}";
         // mapDataAfter = jsonDecode(afterDecrypt);
         // afterDecrypt = mapDataAfter['data'] ?? "Failed";

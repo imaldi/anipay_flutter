@@ -1,6 +1,8 @@
+import 'package:anipay_flutter/data_layer/consts/string_consts.dart';
 import 'package:anipay_flutter/data_layer/size_const.dart';
 import 'package:anipay_flutter/presentation_layer/widgets/my_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -17,6 +19,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
   var noPonselController = TextEditingController();
   var pekerjaanController = TextEditingController();
   var alamatController = TextEditingController();
+  SharedPreferences? sharedPref;
+  getSharedPref() async {
+    sharedPref = await SharedPreferences.getInstance();
+    // return sp;
+  }
+  @override
+  void initState() {
+    getSharedPref();
+    loketController.text = sharedPref?.getString(USER_PROFILE_NAMA_LOKET) ?? "";
+    noRegController.text = sharedPref?.getString(USER_PROFILE_NOMOR_REGISTRASI) ?? "";
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: SingleChildScrollView(
@@ -34,8 +48,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         height: size_huge,
         child: Icon(Icons.person),
       ),
-                Text('Aldi Irsan Majid'),
-                Text('000000001010101'),
+                Text('${sharedPref?.getString(USER_PROFILE_NAMA_USER) ?? 'Aldi Majid'}'),
+                Text('${noRegController.text}'),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
