@@ -1,3 +1,4 @@
+import 'package:anipay_flutter/presentation_layer/screens/change_password_screen.dart';
 import 'package:anipay_flutter/presentation_layer/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,9 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: SplashScreen(),
+      home:
+      ChangePasswordScreen(),
+      // SplashScreen(),
       // home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }

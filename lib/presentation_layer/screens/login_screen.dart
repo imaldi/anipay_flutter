@@ -23,8 +23,12 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool obscureText = true;
   GlobalKey<FormState> keyForm = GlobalKey<FormState>();
-  TextEditingController phoneController = TextEditingController(text: "080809090707");
-  TextEditingController passwordController = TextEditingController(text: "Aldi_123");
+  TextEditingController phoneController = TextEditingController(
+      text: "080809090707"
+  );
+  TextEditingController passwordController = TextEditingController(
+      text: "Aldi_123"
+  );
   // TextEditingController responseLoginController = TextEditingController();
   // TextEditingController responseLoginAfterController = TextEditingController();
   LoginRepo loginRepo = LoginRepo();
@@ -32,8 +36,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Map<String, String> mapDataPlain = new HashMap();
   Map<String, dynamic> mapDataAfter = new HashMap();
   RequestBody req = RequestBody();
-  String afterEncrypt = "";
-  String afterDecrypt = "";
+  String? afterEncrypt = "";
+  String? afterDecrypt = "";
   checkForm() async {
     if (keyForm.currentState?.validate() ?? false) {
       // LoginRepo loginRepo = LoginRepo();

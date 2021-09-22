@@ -66,8 +66,7 @@ class PlainLoginResponseModel {
     "total": total == null ? null : total,
     "session": session == null ? null : session,
     "trxseckey": trxseckey == null ? null : trxseckey,
-    // TODO because this is not my API, need further check for null map data
-    "data": data == null ? null : List<dynamic>.from(data!.map((x) => x.toJson())),
+    "data": data == null ? null : List<dynamic>.from(data?.map((x) => x.toJson()) ?? []),
   };
 }
 
@@ -268,8 +267,7 @@ class UserProfile {
     "myntID": myntId == null ? null : myntId,
     "myntNumber": myntNumber == null ? null : myntNumber,
     "myntPhone": myntPhone == null ? null : myntPhone,
-    // TODO because this is not my API, need further check for null map data
-    "santri": santri == null ? null : List<dynamic>.from(santri!.map((x) => x.toJson())),
+    "santri": santri == null ? null : List<dynamic>.from(santri?.map((x) => x.toJson()) ?? []),
   };
 }
 
