@@ -14,6 +14,7 @@ import 'package:anipay_flutter/presentation_layer/screens/tentang_screen.dart';
 import 'package:anipay_flutter/presentation_layer/screens/token_listrik_screen.dart';
 import 'package:anipay_flutter/presentation_layer/widgets/my_alert_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'pdam_index_screen.dart';
 
@@ -26,6 +27,19 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool logout = false;
+  // var fromSharedPreference = "";
+  // getSharedPref() async {
+  //   SharedPreferences sp = await SharedPreferences.getInstance();
+  //   setState(() {
+  //   fromSharedPreference = sp.getString("ALDI") ?? "Failed";
+  //
+  //   });
+  // }
+  @override
+  void initState() {
+    // getSharedPref();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -407,6 +421,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Row(
                       children: [
                         Text("ARTIKEL"),
+                        // Text("fromSharedPreference: $fromSharedPreference"),
                       ],
                     ),
                   )

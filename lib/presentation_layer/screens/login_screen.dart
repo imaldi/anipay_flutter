@@ -12,6 +12,7 @@ import 'package:anipay_flutter/data_layer/size_const.dart';
 import 'package:anipay_flutter/presentation_layer/screens/registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -38,6 +39,11 @@ class _LoginScreenState extends State<LoginScreen> {
   RequestBody req = RequestBody();
   String? afterEncrypt = "";
   String? afterDecrypt = "";
+  // testSP() async {
+  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  //   return sharedPreferences.setString("ALDI", "ALDI MAJIDE");
+  //
+  // }
   checkForm() async {
     if (keyForm.currentState?.validate() ?? false) {
       // LoginRepo loginRepo = LoginRepo();
@@ -166,9 +172,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: ButtonStyle(
                                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18.0), side: BorderSide(color: Colors.white)))),
-                            onPressed: () {
+                            onPressed: () async {
+                              // testSP();
                               // Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
                               checkForm();
+
                               print("Something");
                             },
                             child: Text(

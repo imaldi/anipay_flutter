@@ -22,13 +22,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
   SharedPreferences? sharedPref;
   getSharedPref() async {
     sharedPref = await SharedPreferences.getInstance();
+    setState(() {
+      loketController.text = sharedPref?.getString(USER_PROFILE_NAMA_LOKET) ?? "";
+      noRegController.text = sharedPref?.getString(USER_PROFILE_NOMOR_REGISTRASI) ?? "";
+    });
     // return sp;
   }
   @override
   void initState() {
     getSharedPref();
-    loketController.text = sharedPref?.getString(USER_PROFILE_NAMA_LOKET) ?? "";
-    noRegController.text = sharedPref?.getString(USER_PROFILE_NOMOR_REGISTRASI) ?? "";
+
     super.initState();
   }
   @override
